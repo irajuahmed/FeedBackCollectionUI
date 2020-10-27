@@ -1,0 +1,221 @@
+<nav class="navbar navbar-expand-lg fixed-top navbar-transparent" color-on-scroll="100" id="navbar-top">
+    <div class="container">
+        <div class="navbar-translate">
+            <a class="navbar-brand" placement="bottom" [routerLink]="['/home']" target="_blank">
+                <i class="tim-icons icon-bulb-63"></i><span>
+                    Express Way (BS)</span>
+            </a>
+            <button aria-controls="navigation-index" aria-label="Toggle navigation" class="navbar-toggler navbar-toggler" [attr.aria-expanded]="!isCollapsed" (click)="isCollapsed = !isCollapsed" id="navigation" type="button">
+                <span class="navbar-toggler-bar bar1"> </span>
+                <span class="navbar-toggler-bar bar2"> </span>
+                <span class="navbar-toggler-bar bar3"> </span>
+            </button>
+        </div>
+        <div class="navbar-collapse justify-content-end" [collapse]="isCollapsed" id="navigation">
+            <div class="navbar-collapse-header">
+                <div class="row">
+                    <div class="col-6 collapse-brand"><a>Expree Way (BS)</a></div>
+                    <div class="col-6 collapse-close text-right">
+                        <button aria-controls="navigation-index" aria-label="Toggle navigation" class="navbar-toggler" [attr.aria-expanded]="!isCollapsed" (click)="isCollapsed = !isCollapsed" id="navigation" type="button">
+                            <i class="tim-icons icon-simple-remove"> </i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <ul class="navbar-nav">
+                <li class="nav-item p-0">
+                    <a class="nav-link" href="https://twitter.com/" placement="bottom" target="_blank" tooltip="Follow us on Twitter">
+                        <i class="fab fa-twitter"> </i>
+                        <p class="d-lg-none d-xl-none">Twitter</p>
+                    </a>
+                </li>
+                <li class="nav-item p-0">
+                    <a class="nav-link" href="https://www.facebook.com/" placement="bottom" target="_blank" tooltip="Like us on Facebook">
+                        <i class="fab fa-facebook-square"> </i>
+                        <p class="d-lg-none d-xl-none">Facebook</p>
+                    </a>
+                </li>
+                <li class="nav-item p-0">
+                    <a class="nav-link" href="https://www.instagram.com/" placement="bottom" target="_blank" tooltip="Follow us on Instagram">
+                        <i class="fab fa-instagram"> </i>
+                        <p class="d-lg-none d-xl-none">Instagram</p>
+                    </a>
+                </li>
+                <li class="dropdown nav-item" dropdown>
+                    <a class="dropdown-toggle nav-link dropdown-toggle" data-toggle="dropdown" dropdownToggle href="javascript:void(0)">
+                        <i class="fa fa-cogs d-lg-none d-xl-none"> </i> {{userName}}
+                    </a>
+                    <div class="dropdown-menu dropdown-with-icons" *dropdownMenu>
+
+                        <a class="dropdown-item" [routerLink]="['/register']">
+                            <i class="tim-icons icon-bullet-list-67"> </i> Register Page
+                        </a>
+                        <a class="dropdown-item" (click)="logOut()" href="javascript:void(0)">
+                            <i class="tim-icons icon-single-02"> </i> Log Out
+                        </a>
+                    </div>
+                </li>
+                <!-- <li class="nav-item">
+                    <a class="nav-link btn btn-default d-none d-lg-block" href="javascript:void(0)" (click)="scrollToDownload(target)">
+                        <i class="tim-icons icon-cloud-download-93"> </i> Download
+                    </a>
+                </li> -->
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="wrapper">
+    <div class="page-header header-filter">
+        <div class="squares square1"></div>
+        <div class="squares square2"></div>
+        <div class="squares square3"></div>
+        <div class="squares square4"></div>
+        <div class="squares square5"></div>
+        <div class="squares square6"></div>
+        <div class="squares square7"></div>
+
+        <div class="container">
+            <div class="content-center brand">
+                <h1 class="h1-seo">Express Way (BS)</h1>
+                <h3>
+                    A beautiful platform to exibit you thoughts.
+                </h3>
+            </div>
+        </div>
+    </div>
+    <div class="main">
+        <hr style="color: darkorange;">
+        <div class="section section-basic" id="basic-elements">
+            <div class="container">
+                <h2 class="title">What's on Your Mind</h2>
+                <form role="form" [formGroup]="postFrom">
+                    <div class="form-group mb-3">
+                        <div class="input-group input-group-alternative" [ngClass]="{ 'input-group-focus': focus1 === true }">
+                            <!-- <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    
+                                </span>
+                            </div> -->
+                            <textarea class="form-control" formControlName="postText" placeholder="Wirte here" (focus)="focus1 = true" (blur)="focus1 = false">
+
+                            </textarea>
+
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-primary my-4" type="button" (click)="post()">
+                            Post
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="container">
+                <h2 class="title">All Posts</h2>
+                <!-- <p>
+                    <button type="button" class="btn btn-primary btn-sm" (click)="addGroupItem()">
+                        Add Group Item
+                    </button>
+                </p> -->
+
+                <accordion [isAnimated]="true">
+                    <accordion-group *ngFor="let group of postList" [heading]="group.userFullName">
+                        <p>{{ group?.post }}</p>
+                        <accordion [isAnimated]="true">
+                            <p style="text-align: center;">Comments({{group?.commentsList.length}})</p>
+                            <form role="form" [formGroup]="commFrom">
+                                <div class="form-group mb-3">
+                                    <div class="input-group input-group-alternative" [ngClass]="{ 'input-group-focus': focus1 === true }">
+                                        <!-- <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                
+                                            </span>
+                                        </div> -->
+                                        <textarea class="form-control" formControlName="postText" placeholder="Wirte here" (focus)="focus1 = true" (blur)="focus1 = false">
+            
+                                        </textarea>
+
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <button class="btn btn-primary my-4" type="button" (click)="comment(group?.postCode)">
+                                        Comment Here
+                                    </button>
+                                </div>
+                            </form>
+                            <accordion-group *ngFor="let comment of group.commentsList" [heading]="comment.userFullName">
+                                <p>{{ comment?.comments }}</p>
+                                <button class="btn btn-link btn-info mr-1" (click)="like(comment?.commentsCode)">Like {{ comment?.votetypeList.likedCount }}</button>
+                                <button class="btn btn-link btn-danger" (click)="dislike(comment?.commentsCode)">Dislike {{ comment?.votetypeList.dislikedCount }}</button>
+                            </accordion-group>
+                        </accordion>
+                    </accordion-group>
+                </accordion>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <h1 class="title">Express Way (BS)</h1>
+                </div>
+                <div class="col-md-3">
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <a class="nav-link"> Home </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link"> Landing </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link"> Register </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link"> Profile </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <a class="nav-link">
+                                Contact Us
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link">
+                                About Us
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link">
+                                Blog
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link">
+                                License
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h3 class="title">Follow us:</h3>
+                    <div class="btn-wrapper profile">
+                        <a class="btn btn-icon btn-neutral btn-round btn-simple mr-1" href="https://twitter.com/" target="_blank">
+                            <i class="fab fa-twitter"> </i>
+                        </a>
+                        <a class="btn btn-icon btn-neutral btn-round btn-simple mr-1" href="https://www.facebook.com/" target="_blank">
+                            <i class="fab fa-facebook-square"> </i>
+                        </a>
+                        <a class="btn btn-icon btn-neutral btn-round btn-simple" href="https://dribbble.com/" target="_blank">
+                            <i class="fab fa-dribbble"> </i>
+                        </a>
+                    </div>
+                </div>
+                <p>&copy; Habibur Rahman Jewel</p>
+            </div>
+        </div>
+
+    </footer>
+</div>
